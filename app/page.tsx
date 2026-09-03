@@ -1,54 +1,14 @@
-import type { CSSProperties, ReactNode } from "react";
-import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
-import { Icon, VertexLogo } from "@/components/icons";
-import { Button, CourseCard, Input, Kbd } from "@/components/ui";
+import type { CSSProperties } from "react";
+import Link from "next/link";
+import { Icon } from "@/components/icons";
+import { SiteHeader } from "@/components/site-header";
+import { CourseGrid } from "@/components/course/course-grid";
+import { Button, Input, Kbd } from "@/components/ui";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { COURSES_QUERY } from "@/sanity/queries";
+import type { COURSES_QUERY_RESULT } from "@/sanity.types";
 
-/* ============================================================
-   Brand art (local to the home page)
-   ============================================================ */
-
-function DockerMark() {
-  return (
-    <svg
-      viewBox="0 0 48 48"
-      width={36}
-      height={36}
-      aria-hidden="true"
-      fill="#2496ED"
-    >
-      <rect x="12" y="14" width="6" height="6" rx="1" />
-      <rect x="19" y="14" width="6" height="6" rx="1" />
-      <rect x="26" y="14" width="6" height="6" rx="1" />
-      <rect x="19" y="7" width="6" height="6" rx="1" />
-      <rect x="12" y="21" width="6" height="6" rx="1" />
-      <rect x="19" y="21" width="6" height="6" rx="1" />
-      <rect x="26" y="21" width="6" height="6" rx="1" />
-      <rect x="33" y="21" width="6" height="6" rx="1" />
-      <path d="M5 28h34c0 6.2-4.4 11-12.5 11H16.5C9.4 39 5 33.2 5 28Z" />
-      <path d="M39.5 25.8c1.5-2 1-4.1 0-5.3 2.1.5 3.2 2.7 2.6 4.8 1 .5 2.1.3 2.7-.6-.3 2.2-2.6 3.2-5.3 1.1Z" />
-    </svg>
-  );
-}
-
-function AuthControls() {
-  return (
-    <>
-      <Show when="signed-out">
-        <SignInButton mode="modal">
-          <Button variant="text">Sign in</Button>
-        </SignInButton>
-        <SignUpButton mode="modal">
-          <Button variant="primary">Sign up</Button>
-        </SignUpButton>
-      </Show>
-      <Show when="signed-in">
-        <UserButton
-          appearance={{ elements: { avatarBox: "h-9 w-9" } }}
-        />
-      </Show>
-    </>
-  );
-}
+const HOME_COURSE_COUNT = 3;
 
 const WAVE = [
   26, 44, 68, 36, 86, 58, 32, 78, 50, 94, 42, 28, 0, 0, 32, 62, 40, 88, 52, 100,
@@ -75,45 +35,6 @@ function HeroWaves() {
         ))}
       </div>
     </div>
-  );
-}
-
-/* ============================================================
-   Header
-   ============================================================ */
-
-function Header() {
-  return (
-    <header className="border-b border-neutral-200 bg-[#F7F4F1]">
-      <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-6">
-        <div className="flex items-center gap-10">
-          <a href="#" aria-label="Vertex home">
-            <VertexLogo />
-          </a>
-          <nav className="hidden items-center gap-8 text-body font-medium sm:flex">
-            <a href="#" aria-current="page" className="text-neutral-900">
-              Courses
-            </a>
-            <a
-              href="#"
-              className="text-neutral-700 transition-colors hover:text-neutral-900"
-            >
-              My Learning
-            </a>
-          </nav>
-        </div>
-        <div className="flex items-center gap-4">
-          <button
-            type="button"
-            aria-label="Notifications"
-            className="text-neutral-700 transition-colors hover:text-neutral-900"
-          >
-            <Icon name="bell" size={22} />
-          </button>
-          <AuthControls />
-        </div>
-      </div>
-    </header>
   );
 }
 
@@ -166,68 +87,24 @@ function Hero() {
    All Courses
    ============================================================ */
 
-type HomeCourse = {
-  title: string;
-  description: string;
-  glyph: ReactNode;
-  glyphClassName: string;
-  level: string;
-  duration: string;
-  modules: string;
-};
-
-const courses: HomeCourse[] = [
-  {
-    title: "Next.js for Production",
-    description:
-      "Build scalable, high-performance web applications with Next.js.",
-    glyph: "N",
-    glyphClassName: "bg-neutral-900 text-white",
-    level: "Intermediate",
-    duration: "18h 24m",
-    modules: "12 modules",
-  },
-  {
-    title: "Docker Essentials",
-    description:
-      "Containerize applications and streamline your development workflow.",
-    glyph: <DockerMark />,
-    glyphClassName: "bg-transparent",
-    level: "Beginner",
-    duration: "10h 12m",
-    modules: "8 modules",
-  },
-  {
-    title: "TypeScript Deep Dive",
-    description: "Go beyond the basics and write safer, more expressive code.",
-    glyph: "TS",
-    glyphClassName: "bg-[#3178C6] text-white text-body font-bold",
-    level: "Intermediate",
-    duration: "14h 36m",
-    modules: "10 modules",
-  },
-];
-
-function AllCourses() {
+function AllCourses({ courses }: { courses: COURSES_QUERY_RESULT }) {
   return (
     <section className="py-14">
       <div className="flex items-end justify-between gap-4">
         <h2 className="font-display text-[1.9rem] font-bold text-neutral-900">
           All Courses
         </h2>
-        <a
-          href="#"
+        <Link
+          href="/courses"
           className="inline-flex items-center gap-1.5 text-body font-medium text-primary-500 transition-colors hover:text-primary-400"
         >
           View all courses
           <Icon name="arrow-right" size={16} />
-        </a>
+        </Link>
       </div>
 
-      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {courses.map((course) => (
-          <CourseCard key={course.title} {...course} />
-        ))}
+      <div className="mt-8">
+        <CourseGrid courses={courses.slice(0, HOME_COURSE_COUNT)} />
       </div>
     </section>
   );
@@ -252,20 +129,24 @@ function FooterStrip() {
    Page
    ============================================================ */
 
-export default function Home() {
+export default async function Home() {
   const paper: CSSProperties = {
     background: "#F7F4F1",
     backgroundImage:
       "repeating-linear-gradient(45deg, rgba(15,23,42,0.035) 0 1px, transparent 1px 9px)",
   };
 
+  const courses = await sanityFetch<COURSES_QUERY_RESULT>({
+    query: COURSES_QUERY,
+  });
+
   return (
     <div className="min-h-full overflow-x-hidden" style={paper}>
-      <Header />
+      <SiteHeader active="courses" />
       <main className="mx-auto max-w-[1440px] bg-[#F7F4F1] px-6 pb-4">
         <Hero />
         <div className="border-t border-neutral-200" />
-        <AllCourses />
+        <AllCourses courses={courses} />
         <FooterStrip />
       </main>
       <HeroWaves />

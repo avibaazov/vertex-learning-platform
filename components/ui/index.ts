@@ -1,4 +1,9 @@
-export { Button, type ButtonProps, type ButtonVariant } from "./button";
+export {
+  Button,
+  buttonVariants,
+  type ButtonProps,
+  type ButtonVariant,
+} from "./button";
 export { Badge, type BadgeProps, type BadgeTone } from "./badge";
 export { Input, Kbd, Select, type InputProps, type SelectProps } from "./input";
 export { ProgressBar, type ProgressBarProps } from "./progress-bar";

@@ -40,7 +40,9 @@ function MetaItem({
 export interface CourseCardProps {
   title: string;
   description: string;
-  glyph?: string;
+  glyph?: ReactNode;
+  /** Wrapper classes for the glyph tile. Defaults to the solid dark tile. */
+  glyphClassName?: string;
   level?: string;
   duration?: string;
   modules?: string;
@@ -50,20 +52,26 @@ export function CourseCard({
   title,
   description,
   glyph = "N",
+  glyphClassName = "bg-neutral-900 text-white",
   level = "Intermediate",
   duration = "18h 24m",
   modules = "12 modules",
 }: CourseCardProps) {
   return (
-    <Card className="flex flex-col gap-4">
-      <span className="grid h-12 w-12 place-items-center rounded-md bg-neutral-900 text-heading-3 font-semibold text-white">
+    <Card className="flex h-full flex-col gap-4">
+      <span
+        className={cn(
+          "grid h-12 w-12 place-items-center rounded-md text-heading-3 font-semibold",
+          glyphClassName,
+        )}
+      >
         {glyph}
       </span>
       <div className="space-y-1">
         <h3 className="text-heading-3 font-semibold text-neutral-900">{title}</h3>
         <p className="text-body text-neutral-500">{description}</p>
       </div>
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-neutral-100 pt-3">
+      <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-neutral-100 pt-3">
         <MetaItem icon="chart">{level}</MetaItem>
         <MetaItem icon="clock">{duration}</MetaItem>
         <MetaItem icon="file">{modules}</MetaItem>

@@ -24,7 +24,8 @@ export type IconName =
   | "lock"
   | "play-circle"
   | "arrow-right"
-  | "command";
+  | "command"
+  | "star";
 
 const outline: Record<IconName, ReactNode> = {
   bell: (
@@ -106,6 +107,9 @@ const outline: Record<IconName, ReactNode> = {
   ),
   command: (
     <path d="M9 9V7a2.5 2.5 0 1 0-2.5 2.5H9Zm0 0v6m0-6h6M9 15v2a2.5 2.5 0 1 1-2.5-2.5H9Zm6 0v2a2.5 2.5 0 1 0 2.5-2.5H15Zm0 0V9m0 0v-2a2.5 2.5 0 1 1 2.5 2.5H15Z" />
+  ),
+  star: (
+    <path d="M12 3.5l2.6 5.27 5.82.85-4.21 4.1.99 5.8L12 16.77l-5.2 2.73.99-5.8-4.21-4.1 5.82-.85L12 3.5Z" />
   ),
 };
 

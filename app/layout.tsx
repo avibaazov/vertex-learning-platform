@@ -15,9 +15,9 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Vertex Design System",
+  title: "Vertex — Search your learning in plain English",
   description:
-    "A unified design language for the Vertex learning platform. Clean, modern and focused on clarity, consistency and intuitive learning experiences.",
+    "Vertex understands what you want to learn and finds the exact lessons across all your courses.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

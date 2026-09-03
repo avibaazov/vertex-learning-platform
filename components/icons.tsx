@@ -25,7 +25,16 @@ export type IconName =
   | "play-circle"
   | "arrow-right"
   | "command"
-  | "star";
+  | "star"
+  | "users"
+  | "code"
+  | "gauge"
+  | "layers"
+  | "puzzle"
+  | "rocket"
+  | "shield"
+  | "sparkles"
+  | "workflow";
 
 const outline: Record<IconName, ReactNode> = {
   bell: (
@@ -110,6 +119,59 @@ const outline: Record<IconName, ReactNode> = {
   ),
   star: (
     <path d="M12 3.5l2.6 5.27 5.82.85-4.21 4.1.99 5.8L12 16.77l-5.2 2.73.99-5.8-4.21-4.1 5.82-.85L12 3.5Z" />
+  ),
+  users: (
+    <>
+      <path d="M16 19v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M22 19v-1a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </>
+  ),
+  code: (
+    <>
+      <path d="m8 6-6 6 6 6" />
+      <path d="m16 6 6 6-6 6" />
+    </>
+  ),
+  gauge: (
+    <>
+      <path d="M4.5 16a8 8 0 1 1 15 0" />
+      <path d="m12 14 3.5-4.5" />
+    </>
+  ),
+  layers: (
+    <>
+      <path d="m12 2 10 6-10 6L2 8l10-6Z" />
+      <path d="M2 12l10 6 10-6" />
+      <path d="M2 16l10 6 10-6" />
+    </>
+  ),
+  puzzle: (
+    <path d="M10 4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4h-4a2 2 0 1 0-4 0H6v-4a2 2 0 1 1 0-4V4h4Z" />
+  ),
+  rocket: (
+    <>
+      <path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2" />
+      <path d="M14 4c3 0 6 3 6 6 0 4-4 8-9 11l-4-4C10 12 11 4 14 4Z" />
+      <circle cx="14.5" cy="9.5" r="1.5" />
+    </>
+  ),
+  shield: (
+    <path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6l-7-3Z" />
+  ),
+  sparkles: (
+    <>
+      <path d="M12 4l1.8 4.2L18 10l-4.2 1.8L12 16l-1.8-4.2L6 10l4.2-1.8L12 4Z" />
+      <path d="M18 15l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8Z" />
+    </>
+  ),
+  workflow: (
+    <>
+      <rect x="3" y="4" width="7" height="7" rx="1" />
+      <rect x="14" y="13" width="7" height="7" rx="1" />
+      <path d="M10 7.5h4a3 3 0 0 1 3 3v2.5" />
+    </>
   ),
 };
 

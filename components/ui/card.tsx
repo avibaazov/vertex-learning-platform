@@ -1,4 +1,5 @@
 import type { HTMLAttributes, ReactNode } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/cn";
 import { Icon, type IconName } from "@/components/icons";
 import { Badge } from "./badge";
@@ -40,6 +41,11 @@ function MetaItem({
 export interface CourseCardProps {
   title: string;
   description: string;
+  /** Cover image URL. When set, renders a 16:9 banner instead of the glyph tile. */
+  imageUrl?: string;
+  imageAlt?: string;
+  /** Base64 LQIP for the cover image blur placeholder. */
+  imageLqip?: string;
   glyph?: ReactNode;
   /** Wrapper classes for the glyph tile. Defaults to the solid dark tile. */
   glyphClassName?: string;
@@ -51,6 +57,9 @@ export interface CourseCardProps {
 export function CourseCard({
   title,
   description,
+  imageUrl,
+  imageAlt,
+  imageLqip,
   glyph = "N",
   glyphClassName = "bg-neutral-900 text-white",
   level = "Intermediate",
@@ -59,14 +68,28 @@ export function CourseCard({
 }: CourseCardProps) {
   return (
     <Card className="flex h-full flex-col gap-4">
-      <span
-        className={cn(
-          "grid h-12 w-12 place-items-center rounded-md text-heading-3 font-semibold",
-          glyphClassName,
-        )}
-      >
-        {glyph}
-      </span>
+      {imageUrl ? (
+        <div className="relative -mx-5 -mt-5 aspect-video overflow-hidden rounded-t-lg bg-neutral-900">
+          <Image
+            src={imageUrl}
+            alt={imageAlt ?? title}
+            fill
+            sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+            className="object-cover"
+            placeholder={imageLqip ? "blur" : "empty"}
+            blurDataURL={imageLqip}
+          />
+        </div>
+      ) : (
+        <span
+          className={cn(
+            "grid h-12 w-12 place-items-center rounded-md text-heading-3 font-semibold",
+            glyphClassName,
+          )}
+        >
+          {glyph}
+        </span>
+      )}
       <div className="space-y-1">
         <h3 className="text-heading-3 font-semibold text-neutral-900">{title}</h3>
         <p className="text-body text-neutral-500">{description}</p>

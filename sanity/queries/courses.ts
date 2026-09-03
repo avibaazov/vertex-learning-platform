@@ -20,7 +20,8 @@ const courseCardFragment = /* groq */ `
   "instructor": instructor->{ ${instructorRefFragment} },
   "category": category->{ ${categoryRefFragment} },
   "moduleCount": count(modules),
-  "lessonCount": count(modules[].lessons[])
+  "lessonCount": count(modules[].lessons[]),
+  "durationSeconds": math::sum(modules[].lessons[]->duration)
 `
 
 // Catalog grid.

@@ -11,19 +11,23 @@ import {client} from './client'
  * AGENTS.md §7/§12 forbid.
  *
  * Pass `tags` to opt a query into future webhook-driven `revalidateTag`.
+ *
+ * TypeGen does not overload the client methods in this project, so pass the
+ * generated `*_QUERY_RESULT` type explicitly:
+ *   sanityFetch<COURSE_BY_SLUG_QUERY_RESULT>({ query: COURSE_BY_SLUG_QUERY, ... })
  */
-export async function sanityFetch<const QueryString extends string>({
+export async function sanityFetch<TResult = unknown>({
   query,
   params = {},
   revalidate = 60,
   tags = [],
 }: {
-  query: QueryString
+  query: string
   params?: QueryParams
   revalidate?: number | false
   tags?: string[]
-}) {
-  return client.fetch(query, params, {
+}): Promise<TResult> {
+  return client.fetch<TResult>(query, params, {
     next: {
       revalidate: tags.length ? false : revalidate,
       tags,

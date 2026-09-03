@@ -24,6 +24,17 @@ const variants: Record<ButtonVariant, string> = {
     "disabled:text-primary-300",
 };
 
+/**
+ * Class string for a button-styled control. Use on a `<Link>` or `<a>` that
+ * should look like a `<Button>` without duplicating the token classes.
+ */
+export function buttonVariants(
+  variant: ButtonVariant = "primary",
+  className?: string,
+): string {
+  return cn(base, variants[variant], className);
+}
+
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
 }
@@ -37,7 +48,7 @@ export function Button({
   return (
     <button
       type={type}
-      className={cn(base, variants[variant], className)}
+      className={buttonVariants(variant, className)}
       {...props}
     />
   );

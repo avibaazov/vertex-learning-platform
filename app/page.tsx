@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { Icon, VertexLogo } from "@/components/icons";
 import { Button, CourseCard, Input, Kbd } from "@/components/ui";
 
@@ -29,22 +30,23 @@ function DockerMark() {
   );
 }
 
-function Avatar() {
+function AuthControls() {
   return (
-    <a
-      href="#"
-      aria-label="Your account"
-      className="block rounded-full ring-1 ring-neutral-200"
-    >
-      <svg viewBox="0 0 36 36" className="h-9 w-9 rounded-full" aria-hidden="true">
-        <circle cx="18" cy="18" r="18" fill="var(--color-primary-100)" />
-        <circle cx="18" cy="14.5" r="6" fill="var(--color-primary-300)" />
-        <path
-          d="M5.5 33c1.7-7.2 6.7-10.5 12.5-10.5S28.8 25.8 30.5 33Z"
-          fill="var(--color-primary-300)"
+    <>
+      <Show when="signed-out">
+        <SignInButton mode="modal">
+          <Button variant="text">Sign in</Button>
+        </SignInButton>
+        <SignUpButton mode="modal">
+          <Button variant="primary">Sign up</Button>
+        </SignUpButton>
+      </Show>
+      <Show when="signed-in">
+        <UserButton
+          appearance={{ elements: { avatarBox: "h-9 w-9" } }}
         />
-      </svg>
-    </a>
+      </Show>
+    </>
   );
 }
 
@@ -108,7 +110,7 @@ function Header() {
           >
             <Icon name="bell" size={22} />
           </button>
-          <Avatar />
+          <AuthControls />
         </div>
       </div>
     </header>

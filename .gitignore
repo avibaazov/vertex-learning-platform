@@ -32,6 +32,11 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# Sanity TypeGen intermediate artifact (types themselves are committed)
+/schema.json
+/studio/schema.json
 
 # vercel
 .vercel

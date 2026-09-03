@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Standalone Studio workspace — linted by studio/eslint.config.mjs.
+    "studio/**",
+    // Vendored skill references, not app code.
+    "agent/**",
+    ".agents/**",
   ]),
 ]);
 
